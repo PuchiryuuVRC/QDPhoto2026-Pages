@@ -109,7 +109,23 @@
 
   function readDebugPhase() {
     try {
-      return clampOptionalPhase(window.sessionStorage.getItem(debugStorageKey));
+      var raw = window.sessionStorage.getItem(debugStorageKey);
+      if (!raw) return null;
+      var stored;
+      try {
+        stored = JSON.parse(raw);
+      } catch (error) {
+        window.sessionStorage.removeItem(debugStorageKey);
+        return null;
+      }
+      var phase = clampOptionalPhase(stored && stored.phase);
+      var basePhase = clampOptionalPhase(stored && stored.basePhase);
+      var currentPhase = resolvePhase(config, new Date());
+      if (!phase || basePhase !== currentPhase) {
+        window.sessionStorage.removeItem(debugStorageKey);
+        return null;
+      }
+      return phase;
     } catch (error) {
       return null;
     }
@@ -117,7 +133,12 @@
 
   function writeDebugPhase(phase) {
     try {
-      if (phase >= 1 && phase <= 6) window.sessionStorage.setItem(debugStorageKey, String(phase));
+      if (phase >= 1 && phase <= 6) {
+        window.sessionStorage.setItem(debugStorageKey, JSON.stringify({
+          phase: phase,
+          basePhase: resolvePhase(config, new Date())
+        }));
+      }
       else window.sessionStorage.removeItem(debugStorageKey);
     } catch (error) {
       // The current page still updates using its configured phase.
