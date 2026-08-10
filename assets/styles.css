@@ -156,6 +156,10 @@ a:hover { text-decoration: underline; }
   object-fit: contain;
 }
 
+.hero-image + .schedule {
+  margin-top: 20px;
+}
+
 .intro {
   max-width: 900px;
   padding: 26px 0 4px;
