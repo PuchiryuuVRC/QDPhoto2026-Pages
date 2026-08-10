@@ -11,6 +11,14 @@
     5: "集計・発表準備",
     6: "結果発表"
   };
+  var phaseMessages = {
+    1: "開催案内を公開しました（9月1日より受付開始）",
+    2: "作品投稿受付中！（9月20日まで）",
+    3: "投票準備中...",
+    4: "投票受付中！（9月30日まで）",
+    5: "集計作業中...",
+    6: "受賞作品を公開中です！"
+  };
   var enabledByPhase = {
     headerTop: [1, 2, 3, 4, 5, 6],
     headerEntries: [4, 5, 6],
@@ -37,6 +45,9 @@
       var key = String(element.dataset.phaseLink || "");
       var enabled = (enabledByPhase[key] || []).indexOf(phase) !== -1;
       setLinkEnabled(element, enabled, phase);
+    });
+    document.querySelectorAll("[data-phase-status]").forEach(function (element) {
+      element.textContent = phaseMessages[phase] || "";
     });
     document.querySelectorAll("[data-debug-phase-value]").forEach(function (button) {
       var value = Number(button.dataset.debugPhaseValue || 0);
