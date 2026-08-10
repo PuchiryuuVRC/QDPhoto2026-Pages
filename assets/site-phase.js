@@ -21,8 +21,6 @@
   };
   var enabledByPhase = {
     headerTop: [1, 2, 3, 4, 5, 6],
-    headerEntries: [4, 5, 6],
-    headerResults: [6],
     headerMypage: [2, 3, 4, 5, 6],
     menuSubmit: [2],
     menuEntries: [4, 5, 6],
@@ -155,8 +153,8 @@
 
   function disabledReason(key, currentPhase) {
     if (key === "menuSubmit") return currentPhase < 2 ? "作品受付開始前です。" : "作品受付は終了しました。";
-    if (key === "headerEntries" || key === "menuEntries") return "作品一覧はまだ公開されていません。";
-    if (key === "headerResults" || key === "menuResults") return "結果はまだ発表されていません。";
+    if (key === "menuEntries") return "作品一覧はまだ公開されていません。";
+    if (key === "menuResults") return "結果はまだ発表されていません。";
     if (key === "vote") return currentPhase < 4 ? "投票開始前です。" : "投票受付は終了しました。";
     return "現在は利用できません。";
   }
