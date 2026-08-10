@@ -3,7 +3,6 @@
 
   var config = window.QD_PHOTO_PHASE_CONFIG || {};
   var debugStorageKey = "qdPhotoDebugPhase";
-  var phaseConfigRefreshUrl = "https://raw.githubusercontent.com/PuchiryuuVRC/QDPhoto2026-Pages/main/assets/site-phase-config.js";
   var phaseNames = {
     1: "告知期間",
     2: "投稿受付中",
@@ -36,7 +35,7 @@
 
   function refreshPhaseConfig() {
     if (typeof window.fetch !== "function") return;
-    var url = phaseConfigRefreshUrl + "?refresh=" + Date.now();
+    var url = "assets/site-phase-config.js?refresh=" + Date.now();
     window.fetch(url, { cache: "no-store" })
       .then(function (response) {
         if (!response.ok) throw new Error("Phase config request failed: " + response.status);
