@@ -25,8 +25,6 @@
     menuSubmit: [2],
     menuEntries: [4, 5, 6],
     menuResults: [6],
-    menuMypage: [2, 3, 4, 5, 6],
-    menuLogin: [2, 3, 4, 5, 6],
     vote: [4]
   };
 
