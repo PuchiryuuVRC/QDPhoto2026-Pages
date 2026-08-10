@@ -30,7 +30,39 @@
 
   installDebugControls();
   renderPhase();
+  refreshPhaseConfig();
   document.documentElement.classList.remove("phase-pending");
+
+  function refreshPhaseConfig() {
+    if (typeof window.fetch !== "function") return;
+    var url = "assets/site-phase-config.js?refresh=" + Date.now();
+    window.fetch(url, { cache: "no-store" })
+      .then(function (response) {
+        if (!response.ok) throw new Error("Phase config request failed: " + response.status);
+        return response.text();
+      })
+      .then(function (source) {
+        var freshConfig = parsePhaseConfig(source);
+        if (!freshConfig) return;
+        config = freshConfig;
+        window.QD_PHOTO_PHASE_CONFIG = Object.freeze(freshConfig);
+        renderPhase();
+      })
+      .catch(function () {
+        // Keep the initially loaded config when the refresh request fails.
+      });
+  }
+
+  function parsePhaseConfig(source) {
+    var prefix = "window.QD_PHOTO_PHASE_CONFIG = Object.freeze(";
+    var text = String(source || "").trim();
+    if (text.indexOf(prefix) !== 0 || text.slice(-2) !== ");") return null;
+    try {
+      return JSON.parse(text.slice(prefix.length, -2));
+    } catch (error) {
+      return null;
+    }
+  }
 
   function renderPhase() {
     var debugPhase = readDebugPhase();
