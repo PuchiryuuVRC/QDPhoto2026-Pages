@@ -1,21 +1,23 @@
 <!doctype html>
-<html lang="ja">
+<html lang="ja" class="phase-pending">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>VRC弓道フォトコン2026</title>
   <meta name="description" content="VRC弓道フォトコン2026の公式案内ページです。作品投稿、作品一覧、投票、結果発表への入口を掲載しています。">
   <link rel="stylesheet" href="assets/styles.css">
+  <script src="assets/site-phase-config.js"></script>
+  <script src="assets/site-phase.js" defer></script>
 </head>
 <body>
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="./">VRC弓道フォトコン2026</a>
       <nav class="nav" aria-label="主要メニュー">
-        <a href="./" aria-current="page">トップ</a>
-        <a href="entries.html">作品一覧</a>
-        <a href="results.html">結果発表</a>
-        <a href="https://script.google.com/macros/s/AKfycbzQsVA3FBgk0JuzH3wmLfC2mVJGftSoZfdjsu9SuIyuES-deRKasijV_PKtD3j339rvNw/exec?page=mypage" target="_blank" rel="noopener">マイページ</a>
+        <a href="./" aria-current="page" data-phase-link="headerTop">トップ</a>
+        <a href="entries.html" data-phase-link="headerEntries">作品一覧</a>
+        <a href="results.html" data-phase-link="headerResults">結果発表</a>
+        <a href="https://script.google.com/macros/s/AKfycbzQsVA3FBgk0JuzH3wmLfC2mVJGftSoZfdjsu9SuIyuES-deRKasijV_PKtD3j339rvNw/exec?page=mypage" target="_blank" rel="noopener" data-phase-link="headerMypage">マイページ</a>
       </nav>
     </div>
   </header>
@@ -47,11 +49,11 @@
     <section class="section card">
       <h2>メニュー</h2>
       <div class="actions">
-        <a class="button primary" href="https://script.google.com/macros/s/AKfycbzQsVA3FBgk0JuzH3wmLfC2mVJGftSoZfdjsu9SuIyuES-deRKasijV_PKtD3j339rvNw/exec?page=submit" target="_blank" rel="noopener">作品を投稿する</a>
-        <a class="button" href="entries.html">作品を見る/投票する</a>
-        <a class="button" href="results.html">結果を見る</a>
-        <a class="button" href="https://script.google.com/macros/s/AKfycbzQsVA3FBgk0JuzH3wmLfC2mVJGftSoZfdjsu9SuIyuES-deRKasijV_PKtD3j339rvNw/exec?page=mypage" target="_blank" rel="noopener">マイページ</a>
-        <a class="button" href="https://script.google.com/macros/s/AKfycbzQsVA3FBgk0JuzH3wmLfC2mVJGftSoZfdjsu9SuIyuES-deRKasijV_PKtD3j339rvNw/exec?page=login" target="_blank" rel="noopener">ログイン</a>
+        <a class="button primary" href="https://script.google.com/macros/s/AKfycbzQsVA3FBgk0JuzH3wmLfC2mVJGftSoZfdjsu9SuIyuES-deRKasijV_PKtD3j339rvNw/exec?page=submit" target="_blank" rel="noopener" data-phase-link="menuSubmit">作品を投稿する</a>
+        <a class="button" href="entries.html" data-phase-link="menuEntries">作品を見る/投票する</a>
+        <a class="button" href="results.html" data-phase-link="menuResults">結果を見る</a>
+        <a class="button" href="https://script.google.com/macros/s/AKfycbzQsVA3FBgk0JuzH3wmLfC2mVJGftSoZfdjsu9SuIyuES-deRKasijV_PKtD3j339rvNw/exec?page=mypage" target="_blank" rel="noopener" data-phase-link="menuMypage">マイページ</a>
+        <a class="button" href="https://script.google.com/macros/s/AKfycbzQsVA3FBgk0JuzH3wmLfC2mVJGftSoZfdjsu9SuIyuES-deRKasijV_PKtD3j339rvNw/exec?page=login" target="_blank" rel="noopener" data-phase-link="menuLogin">ログイン</a>
       </div>
       <p class="notice">作品投稿・投票・マイページでは、専用フォームを新しいタブで開きます。Google Apps Script上で動作する公式フォームです。</p>
     </section>
@@ -65,7 +67,7 @@
       <h3>参加方法</h3>
       <ol>
         <li>「作品タイトル」+ ハッシュタグ <a href="https://x.com/search?q=%23VRC%E5%BC%93%E9%81%93%E3%83%95%E3%82%A9%E3%83%88%E3%82%B3%E3%83%B32026&src=typed_query&f=live" target="_blank" rel="noopener"><strong>#VRC弓道フォトコン2026</strong></a> をつけてXに投稿</li>
-        <li>Xへの投稿後、専用サイトから<a href="https://script.google.com/macros/s/AKfycbzQsVA3FBgk0JuzH3wmLfC2mVJGftSoZfdjsu9SuIyuES-deRKasijV_PKtD3j339rvNw/exec?page=submit" target="_blank" rel="noopener">エントリー登録</a></li>
+        <li>Xへの投稿後、専用サイトから<a href="https://script.google.com/macros/s/AKfycbzQsVA3FBgk0JuzH3wmLfC2mVJGftSoZfdjsu9SuIyuES-deRKasijV_PKtD3j339rvNw/exec?page=submit" target="_blank" rel="noopener" data-phase-link="menuSubmit">エントリー登録</a></li>
       </ol>
       <p class="notice warning">Xへの投稿だけでは投票対象になりません。専用サイトでのエントリー作業が必要です。</p>
       <ul>
