@@ -25,45 +25,6 @@ body {
 a { color: var(--primary); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
-.debug-phase-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  min-height: 48px;
-  padding: 7px 16px;
-  border-bottom: 1px solid #d6b870;
-  background: #fff4ce;
-  color: #513d0c;
-  font-size: 13px;
-}
-
-.debug-phase-buttons {
-  display: inline-flex;
-  flex-wrap: wrap;
-  gap: 4px;
-}
-
-.debug-phase-buttons button {
-  min-width: 34px;
-  min-height: 32px;
-  padding: 4px 9px;
-  border: 1px solid #b99a4e;
-  border-radius: 6px;
-  background: #fff;
-  color: #513d0c;
-  cursor: pointer;
-  font: inherit;
-  font-weight: 700;
-}
-
-.debug-phase-buttons button.active {
-  border-color: var(--warning);
-  background: var(--warning);
-  color: #fff;
-}
-
 .site-header {
   position: sticky;
   top: 0;
@@ -289,7 +250,6 @@ p { margin: 0 0 14px; }
 }
 
 @media (max-width: 760px) {
-  .debug-phase-bar { justify-content: flex-start; }
   .header-inner {
     align-items: flex-start;
     flex-direction: column;
