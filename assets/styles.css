@@ -228,6 +228,10 @@ p { margin: 0 0 14px; }
   color: var(--text);
 }
 
+.phase-status-message a + a {
+  margin-left: 0.25em;
+}
+
 .world-list {
   display: grid;
   gap: 10px;
