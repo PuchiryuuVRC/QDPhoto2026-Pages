@@ -216,6 +216,18 @@ p { margin: 0 0 14px; }
   font-weight: 800;
 }
 
+.phase-status-message a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.phase-status-message a:hover,
+.phase-status-message a:focus-visible {
+  color: var(--text);
+}
+
 .world-list {
   display: grid;
   gap: 10px;
