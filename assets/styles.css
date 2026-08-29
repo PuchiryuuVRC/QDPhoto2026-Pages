@@ -113,8 +113,7 @@ a:hover { text-decoration: underline; }
 .hero-image img {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: contain;
+  height: auto;
 }
 
 .hero-image + .schedule {
