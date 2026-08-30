@@ -18,6 +18,11 @@
     menuResults: [6],
     vote: [4]
   };
+  var statusKeyByLink = {
+    menuEntries: "galleryStatus",
+    vote: "voteStatus",
+    menuResults: "resultStatus"
+  };
 
   renderPhase();
   refreshPhaseConfig();
@@ -55,11 +60,15 @@
   }
 
   function renderPhase() {
-    var phase = resolvePhase(config, new Date());
+    var now = new Date();
+    var phase = resolvePhase(config, now);
+    renderEnvironmentBanner();
+    updateDeploymentLinks();
+    updatePhaseLinkLabels(phase);
     document.documentElement.dataset.sitePhase = String(phase);
     document.querySelectorAll("[data-phase-link]").forEach(function (element) {
       var key = String(element.dataset.phaseLink || "");
-      var enabled = (enabledByPhase[key] || []).indexOf(phase) !== -1;
+      var enabled = (enabledByPhase[key] || []).indexOf(phase) !== -1 && statusAllowsLink(config, key, now);
       setLinkEnabled(element, enabled, phase);
     });
     document.querySelectorAll("[data-phase-status]").forEach(function (element) {
@@ -67,24 +76,64 @@
     });
   }
 
-  function resolvePhase(values, now) {
-    if (String(values.mode || "manual") === "manual") {
-      return clampPhase(values.manualPhase);
+  function updatePhaseLinkLabels(phase) {
+    if (phase !== 4 && phase !== 5 && phase !== 6) return;
+    var label = phase === 4 ? "全作品を見る／投票する" : "全作品を見る";
+    document.querySelectorAll('[data-phase-link="menuEntries"]').forEach(function (element) {
+      element.textContent = label;
+    });
+  }
+
+  function renderEnvironmentBanner() {
+    if (!document.body || typeof document.createElement !== "function") return;
+    var environment = String(config.environment || "production").toLowerCase();
+    var existing = document.getElementById("testEnvironmentBanner");
+    if (environment === "production") {
+      if (existing && existing.parentNode) existing.parentNode.removeChild(existing);
+      return;
     }
+    var banner = existing || document.createElement("div");
+    banner.id = "testEnvironmentBanner";
+    banner.className = "test-environment-banner";
+    banner.setAttribute("role", "status");
+    banner.textContent = String(config.environmentLabel || "TEST環境");
+    if (!existing) document.body.insertBefore(banner, document.body.firstChild);
+  }
 
-    var current = now.getTime();
-    var entryOpen = parseTime(values.entryOpenAt);
-    var entryClose = parseTime(values.entryCloseAt);
-    var voteOpen = parseTime(values.voteOpenAt);
-    var voteClose = parseTime(values.voteCloseAt);
-    var resultPublish = parseTime(values.resultPublishAt);
+  function updateDeploymentLinks() {
+    var voteUrl = String(config.voteWebAppUrl || "").trim();
+    var appBaseUrl = voteUrl.split("?")[0];
+    if (!appBaseUrl) return;
+    var pageByPhaseLink = {
+      headerMypage: "mypage",
+      menuSubmit: "submit",
+      vote: "vote"
+    };
+    Object.keys(pageByPhaseLink).forEach(function (key) {
+      document.querySelectorAll('[data-phase-link="' + key + '"]').forEach(function (element) {
+        element.setAttribute("href", appBaseUrl + "?page=" + encodeURIComponent(pageByPhaseLink[key]));
+      });
+    });
+    document.querySelectorAll("[data-app-page]").forEach(function (element) {
+      element.setAttribute("href", appBaseUrl + "?page=" + encodeURIComponent(String(element.dataset.appPage || "home")));
+    });
+  }
 
-    if (entryOpen != null && current < entryOpen) return 1;
-    if (entryClose == null || current <= entryClose) return 2;
-    if (voteOpen != null && current < voteOpen) return 3;
-    if (voteClose == null || current <= voteClose) return 4;
-    if (resultPublish != null && current >= resultPublish) return 6;
-    return 5;
+  function statusAllowsLink(values, linkKey, now) {
+    var statusKey = statusKeyByLink[linkKey];
+    if (!statusKey || !Object.prototype.hasOwnProperty.call(values, statusKey)) return true;
+    var status = String(values[statusKey] || "").toLowerCase();
+    if (status === "published") return true;
+    if (statusKey === "resultStatus" && status === "scheduled") {
+      now = now || new Date();
+      var publishAt = parseTime(values.resultPublishAt);
+      return publishAt != null && now.getTime() >= publishAt;
+    }
+    return false;
+  }
+
+  function resolvePhase(values, now) {
+    return clampPhase(values.manualPhase);
   }
 
   function parseTime(value) {
@@ -120,6 +169,11 @@
   }
 
   function disabledReason(key, currentPhase) {
+    if (!statusAllowsLink(config, key)) {
+      if (key === "menuEntries") return "作品一覧は現在非公開です。";
+      if (key === "menuResults") return "結果ページは現在非公開です。";
+      if (key === "vote") return "投票フォームは現在非公開です。";
+    }
     if (key === "menuSubmit") return currentPhase < 2 ? "作品受付開始前です。" : "作品受付は終了しました。";
     if (key === "menuEntries") return "作品一覧はまだ公開されていません。";
     if (key === "menuResults") return "結果はまだ発表されていません。";
