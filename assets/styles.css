@@ -145,6 +145,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   height: auto;
 }
 
+.hero-caption {
+  margin: 0;
+  padding: 10px 14px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.schedule-update h2 { margin-top: 0; }
+.schedule-update p:last-child { margin-bottom: 0; }
+
 .hero-image + .schedule {
   margin-top: 20px;
 }
@@ -206,6 +216,13 @@ p { margin: 0 0 14px; }
   display: block;
   font-size: 22px;
 }
+
+.schedule-previous {
+  margin: 4px 0;
+  color: var(--muted);
+}
+
+.schedule ins { text-decoration: none; }
 
 .actions {
   display: flex;
