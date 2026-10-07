@@ -2,6 +2,7 @@
   "use strict";
 
   var config = window.QD_PHOTO_PHASE_CONFIG || {};
+  var phaseScriptUrl = document.currentScript && document.currentScript.src;
   var phaseMessages = {
     1: "開催案内を公開しました（9月1日より受付開始）",
     2: "作品投稿受付中！（9月23日 23:59まで延長・日本時間）",
@@ -30,7 +31,7 @@
 
   function refreshPhaseConfig() {
     if (typeof window.fetch !== "function") return;
-    var url = "assets/site-phase-config.js?refresh=" + Date.now();
+    var url = phaseScriptUrl ? new URL("site-phase-config.js?refresh=" + Date.now(), phaseScriptUrl).href : "assets/site-phase-config.js?refresh=" + Date.now();
     window.fetch(url, { cache: "no-store" })
       .then(function (response) {
         if (!response.ok) throw new Error("Phase config request failed: " + response.status);
